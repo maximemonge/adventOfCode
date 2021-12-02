@@ -1,50 +1,33 @@
-print("Exercice 1")
-
-def exerciceUn(filename):
+def getLines(filename):
     file = open(filename,'r')
-    horizontal = 0
-    depth = 0
-    lines = file.read().splitlines()
-    for line in lines:
-        datas = line.split()
-        if datas[0] == "forward":
-            horizontal += int(datas[1])
-        elif datas[0] == "up":
-            depth -= int(datas[1])
-        else:
-            depth += int(datas[1])
-    return depth * horizontal
+    return file.read().splitlines()
 
-test = exerciceUn('02_input_exemple.txt')
-print("Réponse test : " + str(test) + " --> " + str(test == 150))
-
-result = exerciceUn('02_input.txt')
-print("Réponse : " + str(result) + " --> " + str(result == 1648020))
-
-
-
-print("\nExercice 2")
-
-
-def exerciceDeux(filename):
-    file = open(filename,'r')
+def calculate(filename, useAim):
     horizontal = 0
     depth = 0
     aim = 0
-    lines = file.read().splitlines()
-    for line in lines:
-        datas = line.split()
-        if datas[0] == "forward":
-            horizontal += int(datas[1])
-            depth += aim * int(datas[1])
-        elif datas[0] == "up":
-            aim -= int(datas[1])
+    steps = getLines(filename)
+    for step in steps:
+        direction, value = step.split()
+        if direction == "forward":
+            horizontal += int(value)
+            depth += aim * int(value)
+        elif direction == "up":
+            aim -= int(value)
         else:
-            aim += int(datas[1])
+            aim += int(value)
+    if not useAim:
+        depth = aim
     return depth * horizontal
 
-test = exerciceDeux('02_input_exemple.txt')
-print("Réponse test : " + str(test) + " --> " + str(test == 900))
+testOne = calculate('02_input_exemple.txt', False)
+print("Réponse test : " + str(testOne) + " --> " + str(testOne == 150))
 
-result = exerciceDeux('02_input.txt')
-print("Réponse : " + str(result) + " --> " + str(result == 1759818555))
+resultOne = calculate('02_input.txt', False)
+print("Réponse : " + str(resultOne) + " --> " + str(resultOne == 1648020))
+
+testTwo = calculate('02_input_exemple.txt', True)
+print("Réponse test : " + str(testTwo) + " --> " + str(testTwo == 900))
+
+resultTwo = calculate('02_input.txt', True)
+print("Réponse : " + str(resultTwo) + " --> " + str(resultTwo == 1759818555))
