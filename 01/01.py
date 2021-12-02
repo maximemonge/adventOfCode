@@ -12,7 +12,7 @@ test = exerciceUn('01_input_exemple.txt')
 print("Réponse test : " + str(test) + " --> " + str(test == 7))
 
 result = exerciceUn('01_input.txt')
-print("Réponse : " + str(result))
+print("Réponse : " + str(result) + " --> " + str(result == 1316))
 
 
 
@@ -32,4 +32,4 @@ test = exerciceDeux('01_input_exemple.txt')
 print("Réponse test : " + str(test) + " --> " + str(test == 5))
 
 result = exerciceDeux('01_input.txt')
-print("Réponse : " + str(result))
+print("Réponse : " + str(result) + " --> " + str(result == 1344))
