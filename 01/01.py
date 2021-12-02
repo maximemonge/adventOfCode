@@ -1,35 +1,27 @@
-print("Exercice 1")
-
-def exerciceUn(filename):
+def getLines(filename):
     file = open(filename,'r')
+    return file.read().splitlines()
+
+def getNumberOfIncreases(filename, slidings):
     increases = 0
-    lines = file.read().splitlines()
-    for index in range(len(lines) - 1):
-        increases += int(lines[index + 1]) > int(lines[index])
+    lines = getLines(filename)
+    for index in range(len(lines) - slidings):
+        previous = 0
+        current = 0
+        for sliding in range(slidings):
+            previous += int(lines[index + sliding])
+            current += int(lines[index + sliding + 1])
+        increases += int(current) > int(previous)
     return increases
 
-test = exerciceUn('01_input_exemple.txt')
-print("Réponse test : " + str(test) + " --> " + str(test == 7))
+testOne = getNumberOfIncreases('01_input_exemple.txt', 1)
+print("Réponse test partie 1 : " + str(testOne) + " --> " + str(testOne == 7))
 
-result = exerciceUn('01_input.txt')
-print("Réponse : " + str(result) + " --> " + str(result == 1316))
+resultOne = getNumberOfIncreases('01_input.txt', 1)
+print("Réponse partie 1 : " + str(resultOne) + " --> " + str(resultOne == 1316))
 
+testTwo = getNumberOfIncreases('01_input_exemple.txt', 3)
+print("Réponse test partie 2 : " + str(testTwo) + " --> " + str(testTwo == 5))
 
-
-print("\nExercice 2")
-
-def exerciceDeux(filename):
-    file = open(filename,'r')
-    increases = 0
-    lines = file.read().splitlines()
-    for index in range(len(lines) - 3):
-        old = int(lines[index]) + int(lines[index + 1]) + int(lines[index + 2])
-        new = int(lines[index + 1]) + int(lines[index + 2]) + int(lines[index + 3])
-        increases += int(new) > int(old)
-    return increases
-
-test = exerciceDeux('01_input_exemple.txt')
-print("Réponse test : " + str(test) + " --> " + str(test == 5))
-
-result = exerciceDeux('01_input.txt')
-print("Réponse : " + str(result) + " --> " + str(result == 1344))
+resultTwo = getNumberOfIncreases('01_input.txt', 3)
+print("Réponse partie 2 : " + str(resultTwo) + " --> " + str(resultTwo == 1344))
