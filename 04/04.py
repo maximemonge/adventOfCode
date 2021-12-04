@@ -4,61 +4,65 @@ def getLines(filename):
 
 def bingo(filename, strategy):
     datas = getLines(filename)
+    numbers, players, sizeOfGrid = parseDatas(datas)
+    return play(numbers, players, sizeOfGrid, strategy)
+
+def parseDatas(datas):
     numbers = datas[0].split(",")
     players = []
     player = []
-    nbPlayers = -1
     sizeOfGrid = 0
     for i in range(1, len(datas)):
-        if datas[i] == "":
-            if nbPlayers >= 0:
-                players.append(player)
+        if datas[i] == "" and player != []:
+            players.append(player)
             player = []
-            nbPlayers += 1
         else:
             player += datas[i].split()
             if sizeOfGrid == 0:
                 sizeOfGrid = len(player)
     players.append(player)
-    return play(numbers, players, sizeOfGrid, strategy)
+    return numbers, players, sizeOfGrid
 
 def play(numbers, players, sizeOfGrid, strategy):
-    winner = 0
+    playerScore = 0
     winners = []
     for number in numbers:
         for player in players:
             if player not in winners:
-                player[:] = [i if i != number else "X" for i in player]
-                winner = verifyPlayer(player, sizeOfGrid)
-                if winner != 0:
+                player[:] = addCrossInPlayerGrid(number, player)
+                playerScore = getPlayerScore(player, sizeOfGrid)
+                if playerScore > 0:
                     winners.append(player)
-                    if strategy == 1:
-                        return winner * int(number)
-                    else:
-                        if len(winners) == len(players):
-                            return winner * int(number)
+                    if strategy == 1 or len(winners) == len(players):
+                        return playerScore * int(number)
 
-def verifyPlayer(player, sizeOfGrid):
-    end = False
+def addCrossInPlayerGrid(number, player):
+    return [i if i != number else "X" for i in player]
+    
+def getPlayerScore(player, sizeOfGrid):
+    victory = False
     score = 0
     line = []
-    columns = [""]*5
+    columns = [""] * sizeOfGrid
     for i in range(len(player)):
-        if not end:
+        if not victory:
             columns[i % sizeOfGrid] += player[i]
-            if i % sizeOfGrid == 0:
-                if i != 0:
-                    if line.count("X") == sizeOfGrid:
-                        end = True
-                    line = []
-            line.append(player[i])
+            victory, line = isWinningLine(i, sizeOfGrid, line, player)
         if player[i] != "X":
             score += int(player[i])
-    if not end:
-        end = columnWin(columns, sizeOfGrid)
-    return score if end else 0
+    if not victory:
+        victory = isWinningColumn(columns, sizeOfGrid)
+    return score if victory else 0
 
-def columnWin(columns, sizeOfGrid):
+def isWinningLine(i, sizeOfGrid, line, player):
+    if i % sizeOfGrid == 0 and i != 0:
+        if line.count("X") == sizeOfGrid:
+            return True, line
+        line = []
+    line.append(player[i])
+    return False, line
+
+def isWinningColumn(columns, sizeOfGrid):
     for i in range(sizeOfGrid):
         countX = 0
         for j in range(sizeOfGrid):
