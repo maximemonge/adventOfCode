@@ -1,6 +1,4 @@
-def getLines(filename):
-    file = open(filename,'r')
-    return file.read().splitlines()
+from utils import getLines
 
 def calculatePoints(filename, diagonals):
     lines = getLines(filename)
@@ -43,14 +41,14 @@ def addInDict(dictionnary, x, y):
     return dictionnary
 
 
-testOne = calculatePoints('05_input_exemple.txt', False)
+testOne = calculatePoints('../inputs/05_input_exemple.txt', False)
 print("Réponse test partie 1 : " + str(testOne) + " --> " + str(testOne == 5))
 
-resultOne = calculatePoints('05_input.txt', False)
+resultOne = calculatePoints('../inputs/05_input.txt', False)
 print("Réponse partie 1 : " + str(resultOne) + " --> " + str(resultOne == 6687))
 
-testTwo = calculatePoints('05_input_exemple.txt', True)
+testTwo = calculatePoints('../inputs/05_input_exemple.txt', True)
 print("Réponse test partie 1 : " + str(testTwo) + " --> " + str(testTwo == 12))
 
-resultTwo = calculatePoints('05_input.txt', True)
+resultTwo = calculatePoints('../inputs/05_input.txt', True)
 print("Réponse partie 1 : " + str(resultTwo) + " --> " + str(resultTwo == 19851))

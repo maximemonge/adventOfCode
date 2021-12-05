@@ -1,6 +1,4 @@
-def getLines(filename):
-    file = open(filename,'r')
-    return file.read().splitlines()
+from utils import getLines
 
 def bingo(filename, strategy):
     datas = getLines(filename)
@@ -73,14 +71,14 @@ def isWinningColumn(columns, sizeOfGrid):
     return False
 
 
-testOne = bingo('04_input_exemple.txt', 1)
+testOne = bingo('../inputs/04_input_exemple.txt', 1)
 print("Réponse test partie 1 : " + str(testOne) + " --> " + str(testOne == 4512))
 
-resultOne = bingo('04_input.txt', 1)
+resultOne = bingo('../inputs/04_input.txt', 1)
 print("Réponse partie 1 : " + str(resultOne) + " --> " + str(resultOne == 72770))
 
-testTwo = bingo('04_input_exemple.txt', 2)
+testTwo = bingo('../inputs/04_input_exemple.txt', 2)
 print("Réponse test partie 2 : " + str(testTwo) + " --> " + str(testTwo == 1924))
 
-resultTwo = bingo('04_input.txt', 2)
+resultTwo = bingo('../inputs/04_input.txt', 2)
 print("Réponse partie 2 : " + str(resultTwo) + " --> " + str(resultTwo == 13912))

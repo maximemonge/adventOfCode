@@ -1,6 +1,4 @@
-def getLines(filename):
-    file = open(filename,'r')
-    return file.read().splitlines()
+from utils import getLines
 
 def getDecimalValue(binary):
     decimal = 0
@@ -59,15 +57,15 @@ def traitment(binaries, useMax, index):
     else:
         return getDecimalValue(binaries[0])
 
-testOne = getPowerConsumption('03_input_exemple.txt', 5)
+testOne = getPowerConsumption('../inputs/03_input_exemple.txt', 5)
 print("Réponse test partie 1 : " + str(testOne) + " --> " + str(testOne == 198))
 
-resultOne = getPowerConsumption('03_input.txt', 12)
+resultOne = getPowerConsumption('../inputs/03_input.txt', 12)
 print("Réponse partie 1 : " + str(resultOne) + " --> " + str(resultOne == 1071734))
 
-testTwo = getLifeSupportRating('03_input_exemple.txt')
+testTwo = getLifeSupportRating('../inputs/03_input_exemple.txt')
 print("Réponse test partie 2 : " + str(testTwo) + " --> " + str(testTwo == 230))
 
-resultTwo = getLifeSupportRating('03_input.txt')
+resultTwo = getLifeSupportRating('../inputs/03_input.txt')
 print("Réponse partie 2 : " + str(resultTwo) + " --> " + str(resultTwo == 6124992))
 
